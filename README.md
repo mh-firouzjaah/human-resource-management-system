@@ -3,12 +3,12 @@
 this is a highly customized django project with the following functionalities available:
 
 - This project is one of the most complete examples of Django translation projects available
-  Because it has some hacks to translate `permissions‍‍` visible on the `django-admin` page. (This was a big deal, because you will not find a similar example out there!)
+  Because it has some hacks to translate `permissions` visible on the `django-admin` page. (This was a big deal, because you will not find a similar example out there!)
   There were some `flaws` in the default django `translation files for Persian` and `I fixed` them.
 
 - A system to prevent repeated attempts to log in.
 
-- A system for monitoring `password changes`.
+- A system for monitoring `password changes` and `prevent` reuse of a password or a similar one, at least `4 characters` must be different.
 
 - A system for `expiring passwords` after `specified period` of time.
 
