@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load jalali_tags %}
+
+{% block extra_heads %}
+{% endblock extra_heads %}
+{% block body_down %}
+{% endblock body_down %}
+
+{% block title %}
+{{ card }}
+{% endblock title %}
+
+
+
+{% block content %}
+<div style="width: 500px; max-height: 396px; background-color: #8BC34A; border: 2px solid black; direction: rtl; font-family: iranyekan;">
+    <h5 style="opacity:0.2; position:absolute; color:aliceblue; padding: 20px;">
+        ارتش جمهوری اسلامی ایران
+        <br />
+        نیروی هوائی
+    </h5>
+    <h5 style="opacity:0.2; position:absolute; color:aliceblue; padding:70px;">
+        ارتش جمهوری اسلامی ایران
+        <br />
+        نیروی هوائی
+    </h5>
+    <h5 style="opacity:0.2; position:absolute; color:aliceblue; padding:90px; margin-right: 150px;">
+        ارتش جمهوری اسلامی ایران
+        <br />
+        نیروی هوائی
+    </h5>
+    <h5 style="opacity:0.2; position:absolute; color:aliceblue; padding: 20px; margin-right: 190px; margin-top: 220px;">
+        ارتش جمهوری اسلامی ایران
+        <br />
+        نیروی هوائی
+    </h5>
+    <h5 style="opacity:0.2; position:absolute; color:aliceblue; padding:70px; margin-top: 110px;">
+        ارتش جمهوری اسلامی ایران
+        <br />
+        نیروی هوائی
+    </h5>
+    <p style="text-align: center; font-weight:bold">
+        نیروی هوایی ارتش جمهوری اسلامی ایران
+    </p>
+    <h5 style="font-weight:normal; padding-right: 10px; padding-left: 10px; border-top: 1px solid black; padding-top: 5px; padding-bottom: 5px; height: 55px;">
+        <center>
+            <div style="float: left; height: 75px; border: 1px black dotted; width: 80px;">
+                <span style="font-size: 10px;">
+                    {% if card.personal.image %}
+                    <img src="{{card.personal.image.url }}"
+                         style="width: 80px; height:75px;"
+                         alt="">
+                    {% endif %}
+                </span>
+            </div>
+            <span style="float: right;">
+                اعتبار تا تاریخ
+                {{ card.exp_date|to_jalali:'%y/%m/%d' }}
+                -
+                شماره:
+                {{card.created|to_jalali:'%H%M%S'}}{{card.id}}
+            </span>
+            <br />
+            <span style="float: right;">
+                قسمت:
+                {% for location in card.personal.locations.all %}
+                {{ location.name }}
+                {% endfor %}
+            </span>
+            <br />
+            <span style="float: right;">
+                نوع کارت: {{ card.card }}
+            </span>
+
+        </center>
+    </h5>
+    <h5 style="font-weight: normal; padding-right: 10px; padding-left: 10px; border-top: 1px solid black; padding-top: 5px; padding-bottom: 5px;">
+        <center>
+            <span style="float: right;">
+                نام و نشان:
+                {{card.personal.chevron}}
+                {{ card.personal.get_full_name }}
+                |
+                کد ملی:
+                {{ card.personal.nationalCode }}
+            </span>
+        </center>
+    </h5>
+
+    <h5 style="font-size:12.5px; padding-right: 10px; padding-left: 10px; border-top: 1px solid black; padding-top: 5px; height: 40px;">
+        <span style="float: right;">
+            صادر کننده:
+            |
+            محل مهر و امضا:
+        </span>
+    </h5>
+    <h5 style="font-weight: normal; padding-right: 10px; padding-left: 10px; border-top: 1px solid black; padding-top: 5px; height: 30px;">
+        <label style="float: right; color: #ff0000; font-size: 13px;">
+            {{ card.card.description }}
+        </label>
+    </h5>
+</div>
+<script>
+    $(document).ready(function() {
+        ConvertNumberToPersion();
+    });
+
+    function ConvertNumberToPersion() {
+        persian = {
+            0: '۰',
+            1: '۱',
+            2: '۲',
+            3: '۳',
+            4: '۴',
+            5: '۵',
+            6: '۶',
+            7: '۷',
+            8: '۸',
+            9: '۹'
+        };
+
+        function traverse(el) {
+            if (el.nodeType == 3) {
+                var list = el.data.match(/[0-9]/g);
+                if (list != null && list.length != 0) {
+                    for (var i = 0; i < list.length; i++)
+                        el.data = el.data.replace(list[i],
+                            persian[list[i]]);
+                }
+            }
+            for (var i = 0; i < el.childNodes
+                .length; i++) {
+                traverse(el.childNodes[i]);
+            }
+        }
+        traverse(document.body);
+    }
+</script>
+{% endblock content %}

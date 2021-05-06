@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block title %}{{ title }} |
+{{ site_title|default:_('Human Rescource Management System') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <img src="{% static 'img/logo-100.png' %}" alt="BT Real Estate"
+         height="50" class="brand_img">
+    <a href="{% url 'admin:index' %}">
+        {% translate "Human Rescource Management System" %}
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'admin/css/admin.css' %}">
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

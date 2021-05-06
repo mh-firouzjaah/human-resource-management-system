@@ -1,0 +1,280 @@
+{% extends "admin/change_form.html" %}
+{% load static i18n %}
+
+{% block form_top %}
+{% if not is_popup %}
+<p>ابتدا نام کاربری و رمز عبور وارد کنید. سپس ، می توانید گزینه های
+  کاربر بیشتری را ویرایش کنید.</p>
+{% else %}
+<p>{% trans "Enter a username and password." %}</p>
+{% endif %}
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css"
+      href="{% static "admin/css/forms.css" %}">
+<style>
+  div.help {
+    display: none;
+  }
+
+  input[type="password"] {
+    width: 250px;
+    outline: 0;
+    border-width: 0 0 2px;
+  }
+
+  input[name="username"] {
+    width: 250px;
+    outline: 0;
+    border-width: 0 0 2px;
+  }
+
+
+  .alert {
+    display: none;
+  }
+
+  .wrong .fa-check {
+    display: none;
+  }
+
+  .good {
+    display: none;
+  }
+
+
+  .requirements {
+    list-style-type: none;
+  }
+
+</style>
+{% endblock %}
+
+{% block field_sets %}
+{{ block.super }}
+<div {% if LANGUAGE_BIDI %} dir="rtl" {% endif %} class="alert alert-warning
+                      password-alert
+                      {% if LANGUAGE_BIDI %}
+                      text-right {% endif %}" role="alert">
+  <ul>
+    <li class="requirements">
+      <i class="fas fa-exclamation-triangle"></i>
+      {% comment %} {% blocktrans  trimmed %}
+      Your password can’t be
+      too similar to your other
+      personal information.
+      {% endblocktrans %} {% endcomment %}
+      گذرواژه‌ی شما نمی‌تواند مشابه با سایر
+      اطلاعات فردی شما
+      باشد.
+    </li>
+    <li class="requirements leng">
+      <i class="fas fa-check green-text"></i>
+      <i class="fas fa-times red-text"></i>
+      {% comment %}
+      {% trans "Your password must contain at least 8 characters." %}
+      {% endcomment %}
+      گذرواژه‌ی شما باید حداقل ۸ حرف باشد.
+    </li>
+    <li class="requirements
+                          special-char">
+      <i class="fas fa-check green-text"></i>
+      <i class="fas fa-times red-text"></i>
+      {% comment %}
+      {% trans "Your password can’t be a commonly used password." %}
+      {% endcomment %}
+      گذرواژه‌ی شما نمی‌تواند یک گذرواژه‌ی
+      معمولی باشد.
+    </li>
+    <li class="requirements big-letter">
+      <i class="fas fa-check green-text"></i>
+      <i class="fas fa-times red-text"></i>
+      {% comment %}
+      {% trans "Your password must have at least 1 capital character." %}
+      {% endcomment %}
+      گذرواژه‌ی شما باید حداقل یک حرف بزرگ
+      انگلیسی داشته باشد.
+    </li>
+    <li class="requirements num">
+      <i class="fas fa-check green-text"></i>
+      <i class="fas fa-times red-text"></i>
+      {% comment %}
+      {% trans "Your password must have at least 1 number." %}
+      {% endcomment %}
+      گذرواژه‌ی شما باید شامل حداقل یک عدد باشد.
+    </li>
+    <li class="requirements special-char">
+      <i class="fas fa-check green-text"></i>
+      <i class="fas fa-times red-text"></i>
+      {% comment %}
+      {% trans "Your password must have at least 1 special char." %}
+      {% endcomment %}
+      گذرواژه‌ی شما باید حداقل یک کاراکتر
+      نامتعارف داشته
+      باشد(!#$%).
+    </li>
+  </ul>
+</div>
+
+<div class="alert alert-warning password-alert2
+             {% if LANGUAGE_BIDI %} text-right {% endif %}"
+     {% if LANGUAGE_BIDI %} dir="rtl" {% endif %} role="alert">
+  <ul>
+    <li class="requirements2 passed-match">
+
+      {% comment %}
+      {% trans "Password doesn't match." %}
+      {% endcomment %}
+      گذرواژه‌ها مطابقت ندارند.
+    </li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block document_loaded %}
+<script>
+  $(function () {
+    var $password1 =
+      $("#id_password1");
+    var $password2 =
+      $("#id_password2");
+    var $passwordAlert = $(".password-alert");
+    var $requirements = $(".requirements");
+    var $passwordAlert2 = $(
+      ".password-alert2");
+    var $requirements2 = $(".requirements2");
+    var leng, bigLetter, num, specialChar;
+    var $leng = $(".leng");
+    var $bigLetter = $(".big-letter");
+    var $num = $(".num");
+    var $specialChar = $(".special-char");
+    var specialChars =
+      "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+    var numbers = "0123456789";
+
+    $requirements.addClass("wrong");
+    $password1.on("focus click",
+      function () {
+        $passwordAlert.show();
+      });
+
+    $password1.on("input blur", function (e) {
+      var el = $(this);
+      var val = el.val();
+      $passwordAlert.show();
+
+      if (val.length < 8) {
+        leng = false;
+      } else if (val.length > 7) {
+        leng = true;
+      }
+
+
+      if (val.toLowerCase() == val) {
+        bigLetter = false;
+      } else {
+        bigLetter = true;
+      }
+
+      num = false;
+      for (var i = 0; i < val
+        .length; i++) {
+        for (var j = 0; j < numbers
+          .length; j++) {
+          if (val[i] == numbers[j]) {
+            num = true;
+          }
+        }
+      }
+      specialChar = false;
+      for (var i = 0; i < val
+        .length; i++) {
+        for (var j = 0; j < specialChars
+          .length; j++) {
+          if (val[i] == specialChars[j]) {
+            specialChar = true;
+          }
+        }
+      }
+
+      if (leng == true && bigLetter ==
+        true && num == true &&
+        specialChar == true) {
+        $(this).addClass("valid")
+          .removeClass("invalid");
+        $requirements.removeClass("wrong")
+          .addClass("good");
+        $passwordAlert.removeClass(
+          "alert-warning").addClass(
+          "alert-success");
+        $password1.css('border-bottom-color', 'green');
+        if ($password1.val().length > 12) {
+          $password1.css('border-bottom-color', 'green');
+        }
+
+      } else {
+        $password1.css('border-bottom-color', 'red');
+        $(this).addClass("invalid")
+          .removeClass("valid");
+        $passwordAlert.removeClass(
+          "alert-success").addClass(
+          "alert-warning");
+        if (leng == false) {
+          $leng.addClass("wrong")
+            .removeClass("good");
+        } else {
+
+          $leng.addClass("good")
+            .removeClass("wrong");
+        }
+        if (bigLetter == false) {
+          $bigLetter.addClass("wrong")
+            .removeClass("good");
+        } else {
+          $bigLetter.addClass("good")
+            .removeClass("wrong");
+        }
+        if (num == false) {
+          $num.addClass("wrong")
+            .removeClass("good");
+        } else {
+          $num.addClass("good")
+            .removeClass("wrong");
+        }
+        if (specialChar == false) {
+          $specialChar.addClass("wrong")
+            .removeClass("good");
+        } else {
+          $specialChar.addClass("good")
+            .removeClass("wrong");
+        }
+      }
+
+    });
+
+    $password2.on("input blur",
+      function () {
+        if (
+          $(this).val() !== $password1.val()
+        ) {
+          $password2.css('border-bottom-color', 'red');
+          $(this).addClass("invalid")
+            .removeClass("valid");
+          $passwordAlert2.show();
+        } else if (!$(this).val()) {
+          $password2.css('border-bottom-color', 'red');
+          $(this).addClass("invalid")
+            .removeClass("valid");
+        } else {
+          $password2.css('border-bottom-color', 'green');
+          $(this).addClass("valid")
+            .removeClass("invalid");
+          $passwordAlert2.hide();
+        }
+      });
+  });
+
+</script>
+{% endblock document_loaded %}

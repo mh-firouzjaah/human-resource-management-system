@@ -1,0 +1,274 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-06 23:23+0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\apps\accounts\admin.py:88
+msgid "event description"
+msgstr "شرح رویداد"
+
+#: .\apps\accounts\admin.py:92
+msgid "event date"
+msgstr "تاریخ رویداد"
+
+#: .\apps\accounts\admin.py:99
+msgid "event link"
+msgstr "آدرس رویداد"
+
+#: .\apps\accounts\admin.py:104
+#, python-brace-format
+msgid "Can add | {content_type}"
+msgstr "مجاز به اضافه کردن | {content_type}"
+
+#: .\apps\accounts\admin.py:106
+#, python-brace-format
+msgid "Can change | {content_type}"
+msgstr "مجاز به تغییر دادن | {content_type}"
+
+#: .\apps\accounts\admin.py:108
+#, python-brace-format
+msgid "Can delete | {content_type}"
+msgstr "مجاز به حذف‌ کردن | {content_type}"
+
+#: .\apps\accounts\admin.py:110
+#, python-brace-format
+msgid "Can view | {content_type}"
+msgstr "مجاز به رؤیت کردن | {content_type}"
+
+#: .\apps\accounts\apps.py:7
+msgid "Accounts"
+msgstr "حساب‌ها"
+
+#: .\apps\accounts\middleware.py:77
+msgid ""
+"<center dir=\"rtl\" style=\"margin-top: 30px;\">Too many attempts please try "
+"again after <span id=\"cooldown-error\">{cooldown}</span></"
+"center><script>window.onload = function () {{var minute = {cooldown};var sec "
+"= 60;setInterval(function () {{document.getElementById('cooldown-error')."
+"innerHTML = minute-1 + ':' + sec;sec--;if (sec == 00) {{minute--;"
+"if(minute==00){{ window.location = window.location.href; }}sec = 60;}}}}, "
+"1000);}};</script>"
+msgstr ""
+"<center dir=\"rtl\" style=\"margin-top: 30px;\">تلاش بیش‌ از حد مجاز؛ باید "
+"صبر کنید! <span id=\"cooldown-error\">{cooldown}</span></"
+"center><script>window.onload = function () {{var minute = {cooldown};var sec "
+"= 60;setInterval(function () {{document.getElementById('cooldown-error')."
+"innerHTML = minute-1 + ':' + sec;sec--;if (sec == 00) {{minute--;"
+"if(minute==00){{ window.location = window.location.href; }}sec = 60;}}}}, "
+"1000);}};</script>"
+
+#: .\apps\accounts\models.py:17 .\apps\accounts\signals.py:112
+msgid "Addition"
+msgstr "اضافه‌کردن"
+
+#: .\apps\accounts\models.py:18 .\apps\accounts\signals.py:112
+msgid "Change"
+msgstr "تغییر "
+
+#: .\apps\accounts\models.py:19 .\apps\accounts\signals.py:112
+msgid "Deletion"
+msgstr "حذف"
+
+#: .\apps\accounts\models.py:20
+msgid "Log in/Log out"
+msgstr "ورود/خروج"
+
+#: .\apps\accounts\models.py:25
+msgid "IP"
+msgstr "آی‌پی"
+
+#: .\apps\accounts\models.py:26
+msgid "Try Count"
+msgstr "تعداد تلاش‌ها"
+
+#: .\apps\accounts\models.py:27
+msgid "Last Try"
+msgstr "آخرین تلاش"
+
+#: .\apps\accounts\models.py:32
+msgid "Has valid password"
+msgstr "گذرواژه‌ معتبر"
+
+#: .\apps\accounts\models.py:33
+msgid "Last password change"
+msgstr "آخرین زمان تغییر گذرواژه‌"
+
+#: .\apps\accounts\models.py:35
+msgid "Last IP"
+msgstr "آخرین آی‌پی"
+
+#: .\apps\accounts\models.py:37
+msgid "Logged in"
+msgstr "وارد شده"
+
+#: .\apps\accounts\models.py:38
+msgid "Last logout"
+msgstr "آخرین خروج"
+
+#: .\apps\accounts\models.py:40
+msgid "Personal"
+msgstr "پایور"
+
+#: .\apps\accounts\models.py:42
+msgid "Soldier"
+msgstr "وظیفه"
+
+#: .\apps\accounts\models.py:44
+msgid "Garrison"
+msgstr "پایگاه"
+
+#: .\apps\accounts\models.py:69 .\apps\accounts\models.py:79
+msgid "User"
+msgstr "کاربر"
+
+#: .\apps\accounts\models.py:70
+msgid "Password"
+msgstr "گذرواژه‌"
+
+#: .\apps\accounts\models.py:78
+msgid "Action"
+msgstr "عمل"
+
+#: .\apps\accounts\models.py:80
+msgid "action flag"
+msgstr "نوع رویداد"
+
+#: .\apps\accounts\models.py:82
+msgid "Event Date"
+msgstr "تاریخ رویداد"
+
+#: .\apps\accounts\models.py:85
+msgid "Object Type"
+msgstr "نوع شئ"
+
+#: .\apps\accounts\models.py:86
+msgid "Object URL"
+msgstr "آدرس شئ"
+
+#: .\apps\accounts\models.py:89
+msgid "Log Entry"
+msgstr "رویداد"
+
+#: .\apps\accounts\models.py:90
+msgid "Log Entries"
+msgstr "رویدادها"
+
+#: .\apps\accounts\models.py:98
+#, python-brace-format
+msgid "date: {event_date}, user: {user}, action: {action}"
+msgstr "درتاریخ: {event_date}، کاربر: {user}، عملیات: {action}"
+
+#: .\apps\accounts\signals.py:42
+#, python-brace-format
+msgid ""
+"Welcome, last time you were logged out at {last_logout} and last IP was "
+"{last_ip}.<br/>your current ip is {current_ip}.<br/>You're being Watched and "
+"<strong>Responsible</strong> for whatever you've done."
+msgstr ""
+"خوش‌آمدید، آخرین بار در {last_logout} خارج شدید و آی‌پی شما {last_ip} بوده است."
+"<br/>آی‌پی فعلی شما {current_ip} است.<br/> فعالیت شما در این سامانه تحت نظارت "
+"است و <strong>در قبال فعالیت‌های خود مسئول هستید.</strong>"
+
+#: .\apps\accounts\signals.py:59
+msgid "logged in"
+msgstr "وارد شد"
+
+#: .\apps\accounts\signals.py:76
+msgid "logged out"
+msgstr "خارج شد"
+
+#: .\apps\accounts\signals.py:94
+msgid ""
+"Too many attempts please try again after <span id=\"cooldown-error"
+"\">{cooldown}</span><script>window.onload = function () {{var minute = "
+"{cooldown};var sec = 60;setInterval(function () {{document."
+"getElementById('cooldown-error').innerHTML = minute-1 + ':' + sec;sec--;if "
+"(sec == 00) {{minute--;if(minute==00){{ window.location = window.location."
+"href; }}sec = 60;}}}}, 1000);}};</script>"
+msgstr ""
+"تلاش بیش‌ از حد مجاز؛ باید صبر کنید! <span id=\"cooldown-error\">{cooldown}</"
+"span><script>window.onload = function () {{var minute = "
+"{cooldown};var sec = 60;setInterval(function () {{document."
+"getElementById('cooldown-error').innerHTML = minute-1 + ':' + sec;sec--;if "
+"(sec == 00) {{minute--;if(minute==00){{ window.location = window.location."
+"href; }}sec = 60;}}}}, 1000);}};</script>"
+
+#: .\apps\accounts\signals.py:102
+#, python-brace-format
+msgid "ip: {req_ip} tries to log in."
+msgstr "آی‌پی: {req_ip} برای ورود تلاش کرد."
+
+#: .\apps\accounts\signals.py:103
+msgid "Anonymous user"
+msgstr "کاربر ناشناس"
+
+#: .\apps\accounts\templates\accounts\login.html:126
+msgid "Please correct the error below."
+msgstr "لطفا خطای زیر را اصلاح کنید."
+
+#: .\apps\accounts\templates\accounts\login.html:128
+msgid "Please correct the errors below."
+msgstr "لطفا خطاهای زیر را اصلاح کنید."
+
+#: .\apps\accounts\templates\accounts\login.html:145
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+"شما تحت عنوان %(username)s شناسایی شده‌اید، اما اجازه‌ی دسترسی به این صفحه را "
+"ندارید:مایلید با حساب دیگری ادامه دهید؟"
+
+#: .\apps\accounts\templates\accounts\login.html:173
+msgid "captcha:"
+msgstr "عبارت امنیتی"
+
+#: .\apps\accounts\templates\accounts\login.html:180
+msgid "reload captcha"
+msgstr "بازنشانی عبارت امنیتی"
+
+#: .\apps\accounts\templates\accounts\login.html:195
+msgid "Human Rescource Management System"
+msgstr ""
+
+#: .\apps\accounts\templates\accounts\login.html:203
+msgid "Forgotten your password or username?"
+msgstr "گذرواژه‌‌ی خود را فراموش کرده‌اید؟"
+
+#: .\apps\accounts\templates\accounts\login.html:210
+msgid "Login"
+msgstr "ورود به سامانه"
+
+#: .\apps\accounts\views.py:57
+msgid ""
+"New password must have at least 5 diffrent characters from previous password"
+msgstr "گذرواژه‌‌ی جدید باید حداقل ۵ حرف متفاوت از گذرواژه‌‌ی قبلی داشته باشد."
+
+#: .\apps\accounts\views.py:73
+msgid "Password has already been used"
+msgstr "این گذرواژه‌ قبلا استفاده شده است."
+
+#, python-brace-format
+#~ msgid "Too many attempts please try again after {cooldown} minutes"
+#~ msgstr "تلاش بیش‌ از حد مجاز؛ باید {cooldown} دقیقه صبر کنید!"
+
+#~ msgid "Account"
+#~ msgstr "حساب"
+
+#~ msgid "designed by: I.R. Air Force Security Protection Management"
+#~ msgstr "طراحی و پیاده‌سازی: مدیریت حفاظت نیروهوایی جمهوری اسلامی ایران"

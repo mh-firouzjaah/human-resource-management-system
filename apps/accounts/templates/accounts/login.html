@@ -1,0 +1,213 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css"
+      href="{% static "admin/css/login.css" %}">
+<style>
+    .flex {
+        display: flex;
+    }
+
+    .flex>* {
+        margin-right: 2px;
+        margin-left: 2px;
+    }
+
+    .align-center {
+        align-items: center;
+    }
+
+    #reCaptcha.spin {
+        animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+
+    #container {
+        min-width: 500px !important;
+    }
+
+    #id_username,
+    #id_password {
+        direction: ltr;
+    }
+
+    #design-and-implementation-by {
+        color: rgb(44, 70, 150);
+    }
+</style>
+{{ form.media }}
+
+<script>
+    function reloadCaptcha() {
+        var reCaptchaImg = document.getElementById(
+            'reCaptcha');
+        var captchaImgTag = document
+            .getElementsByClassName('captcha');
+        var idCaptcha0 = document.getElementById(
+            'id_captcha_0');
+
+        reCaptchaImg.classList.add("spin");
+
+        // fetch api is not supported for in browsers
+        // fetch("/captcha/refresh/", {
+        //     headers: {
+        //       "X-Requested-With": "XMLHttpRequest"
+        //     },
+        //     method: 'get'
+        //   }).then(response => response.json())
+        //   .then(data => console.log(data))
+
+
+        var request = new XMLHttpRequest();
+        request.open('GET', "/captcha/refresh/",
+            true);
+        request.setRequestHeader("X-Requested-With",
+            "XMLHttpRequest");
+
+        request.onload = function() {
+            if (this.status >= 200 && this.status <
+                400) {
+                // Success!
+                var data = JSON.parse(this.response);
+                captchaImgTag[0].src = data[
+                    'image_url'];
+                idCaptcha0.value = data['key'];
+                reCaptchaImg.classList.remove("spin");
+            } else {
+                // We reached our target server, but it returned an error
+                console.log(
+                    "Error: request connection completed, but server returned an error"
+                );
+            }
+        };
+        request.onerror =
+            function() {
+                // There was a connection error of some sort
+                console.log(
+                    "Error: request connection failed");
+            };
+        request.send();
+    }
+</script>
+{% endblock %}
+
+{% block bodyclass %}
+{{ block.super }}
+login
+{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+    {% if form.errors.items|length == 1 %}
+    {% translate "Please correct the error below." %}
+    {% else %}
+    {% translate "Please correct the errors below." %}
+    {% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+
+    {% if user.is_authenticated %}
+    <p class="errornote">
+        {% blocktranslate  trimmed %}
+        You are authenticated as {{ username }}, but
+        are not authorized to
+        access this page. Would you like to login to a
+        different account?
+        {% endblocktranslate %}
+    </p>
+    {% endif %}
+
+    <form action="{{ app_path }}" method="post"
+          id="login-form">
+        {% csrf_token %}
+        <div class="form-row">
+            {{ form.username.errors }}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-row">
+            {{ form.password.errors }}
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <input type="hidden" name="next"
+                   value="{{ next }}">
+        </div>
+
+        <div class="form-row flex align-center">
+            <label
+                   for="{{ form.captcha.id_for_label }}">
+                {% translate "captcha:" %}
+            </label>
+            {{ form.captcha }}
+
+            <img id="reCaptcha"
+                 src="{% static 'img/reCaptcha.png' %}"
+                 alt="reCaptcha"
+                 title="{% translate 'reload captcha' %}"
+                 onclick="reloadCaptcha()">
+
+            <br />
+
+        </div>
+        <div class="form-row">
+            {{ form.captcha.errors }}
+        </div>
+
+        <div class="form-row">
+            <!-- This line should be removed -->
+            <span {% if LANGUAGE_BIDI %}dir="rtl"
+                  {% else %}dir="ltr" {% endif %}
+                  id="design-and-implementation-by">
+                {% translate "پیاده سازی و توسعه: MH-FZJ" %}
+            </span>
+            <!-- /This line should be removed -->
+        </div>
+        {% url 'admin_password_reset' as password_reset_url %}
+        {% if password_reset_url %}
+        <div class="password-reset-link">
+            <a href="{{ password_reset_url }}">
+                {% translate 'Forgotten your password or username?' %}
+            </a>
+        </div>
+        {% endif %}
+        <br>
+        <div class="submit-row">
+            <input type="submit"
+                   value="{% translate 'Login' %}">
+        </div>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+﻿pip install virtualenv
+virtualenv --version
+cd Desktop\"ProjecFoldertName"
+virtualenv venv
+venv\Scripts\Activate.bat
+deactivate
+pip install "PackagedName"
+pip freeze
+pip freeze > requirments.txt
+pip install -r requirments.txt
+python -m django version
+mdth\sources\ django-admin startproject "ProjectName"
+cd \"SourceFoldertName"
+python manage.py runserver
+python manage.py startapp "SectionName"
+python manage.py shell
+python manage.py makemigrations
+python manage.py sqlmigrate personal 0001
+python manage.py migrate
+python manage.py createsuperuser
+
+--------------------------------------------------------------------------
+
+CREATE DATABASE ModeTeHeDB;
+\list
+\connect modetehedb
+\q
+
+
+django-admin makemessages -l fa
+django-admin compilemessages
+
+----------------------------------------------------------------------------
+
+One To One Relational:
+category = models.ForeignKey('LocationCategory', on_delete = models.SET_NULL, null = True, blank = False
+One To Many Relational:
+id = models.UUIDField(primary_key = True, default = uuid.uuid4, help_text = 'ای دی دسته بندی را وارد کنید.')
+    category = models.ForeignKey('LocationCategory', on_delete = models.SET_NULL, null = True, blank = False)
+
+
+-------------------------------------------------------------------------------------
+C:\Users\Kavehnia\AppData\Local\Programs\Python\Python38\Lib\site-packages\django\contrib\auth\locale\fa\LC_MESSAGES
+C:\Users\Kavehnia\AppData\Local\Programs\Python\Python38\Lib\site-packages\django\contrib\admin\locale\fa\LC_MESSAGES

@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\apps",
+    "\\apps\\Garrisons\\templates",
+    "\\apps\\Garrisons\\templates\\reports",
+    "\\apps\\Guards",
+    "\\apps\\Guards\\templates",
+    "\\apps\\Guards\\templates\\reports"
+  ],
+  "SelectedNode": "\\apps\\Guards\\templates\\reports\\guardtablet-to-pdf.html",
+  "PreviewInSolutionExplorer": false
+}

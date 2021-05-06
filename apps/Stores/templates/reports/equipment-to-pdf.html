@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% load store_app_tags %}
+{% load l10n %}
+{% load humanize %}
+
+
+{% block title %}
+{{ equipment.name|value_or_null }}
+{% endblock title %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <section>
+      <div class="row bg-light p-4">
+        <div class="header mt-4">
+          <h4 class="text-right">
+            گزارش کالا:
+            {{ equipment.name|value_or_null }}
+          </h4>
+          <p>
+            صدور گزارش توسط: Human Rescource Management System
+            </p>
+           <p>
+             کاربر درخواست کننده:
+             {{ request.user }} -
+             {{ request.user.last_ip }}
+           </p>
+        </div>
+        <div class="logo mr-auto ml-2">
+          <p class="mr-auto ml-2 text-right">
+            تاریخ و زمان صدور:
+            {% now "SHORT_DATETIME_FORMAT" as now_ %}
+            {{ now_|convert_str_date }}
+          </p>
+          <div class="ml-5 text-left">
+            <img
+              src="{% static 'img/logo-100.png' %}"
+              alt="">
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <table>
+
+        <table
+          class="table table-bordered text-right">
+          <tr>
+            <td colspan="2">
+              شرح کالا:
+              {{ equipment.description_equipment|value_or_null }}
+            </td>
+            <td>
+              برند و مدل:
+              {{ equipment.brand|value_or_null }}
+              -
+              {{ equipment.model|value_or_null }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              شماره سریال:
+              {{ equipment.serial_number|value_or_null }}
+            </td>
+            <td>
+              شماره اس آی اس:
+              {{ equipment.sis_number|value_or_null }}
+            </td>
+            <td>
+              شماره اِل پی:
+              {{ equipment.lp_number|value_or_null }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              عامل خرید:
+              {{ equipment.buyer|value_or_null }}
+            </td>
+            <td>
+              کارشناس خرید:
+              {{ equipment.buy_expert|value_or_null }}
+            </td>
+            <td>
+              ذی حساب:
+              {{ equipment.owner|value_or_null }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              فروشگاه خریداری شده:
+              {{ equipment.shop|value_or_null }}
+            </td>
+            <td>
+              تاریخ خرید
+              {{ equipment.buy_date|to_jalali:'%y/%m/%d' }}
+            </td>
+            <td>
+              مبلغ:
+              {{ equipment.amount|intcomma:False|value_or_null }}
+              ریال
+            </td>
+          </tr>
+          <tr>
+            <td>
+              وضعیت اولیه:
+              {{ equipment.status|value_or_null }}
+            </td>
+            <td>
+              بهره بردار:
+              {{ equipment.imperialistic|value_or_null }}
+            </td>
+            <td>
+              تاریخ بهره برداری:
+              {{ equipment.imperialistic_date|to_jalali:'%y/%m/%d' }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              آدرس آی پی و شماره:
+              {{ equipment.ip_address|value_or_null }}
+              -
+              {{ equipment.port_number|value_or_null }}
+            </td>
+            <td>
+              مکان تحویل گیرنده:
+              {{ equipment.location|value_or_null }}
+            </td>
+            <td>
+              انبار تحویل گیرنده:
+              {{ equipment.depot|value_or_null }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              محل استقرار:
+              {{ equipment.deploy_location|value_or_null }}
+            </td>
+            <td colspan="2">
+              شامل اطلاعات طبقه بندی شده:
+              {{ equipment.level_info|value_or_null }}
+              </h6>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              توضیحات تکمیلی:
+              {{ equipment.description|value_or_null }}
+            </td>
+          </tr>
+        </table>
+
+        <hr />
+
+        <h5 style="float: right;">
+          رویداد های کالا:
+        </h5>
+
+        <table
+          class="table table-bordered text-right">
+          <tr style="background-color:#cfcfcf;">
+            <td>تاریخ و زمان</td>
+            <td>شماره امریه</td>
+            <td>تغییر وضعیت به</td>
+            <td>مکان مقصد</td>
+          </tr>
+          {% for event in equipment.history.all %}
+          <tr>
+            <td>
+              {{ event.event_date_time|to_jalali:'مورخ %y/%m/%d ساعت %H:%M'|value_or_null }}
+            </td>
+            <td>
+              {{ event.precept_number|value_or_null }}
+            </td>
+            <td>
+              {{ event.status|value_or_null }}
+            </td>
+            <td>
+              {{ event.location|value_or_null }}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td>
+              --------
+            </td>
+            <td>
+              --------
+            </td>
+            <td>
+              --------
+            </td>
+            <td>
+              --------
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+    </section>
+  </div>
+</main>
+
+{% endblock content %}

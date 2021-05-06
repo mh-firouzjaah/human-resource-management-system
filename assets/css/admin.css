@@ -1,0 +1,13 @@
+@font-face {
+	font-family: IranYekan;
+
+	src: url('../fonts/IRANYekanRegular.ttf');
+}
+
+* {
+	font-family: 'IranYekan' !important;
+}
+
+select {
+	font-size: 12px;
+}

@@ -1,0 +1,53 @@
+@font-face {
+	font-family: IranYekan;
+
+	src: url('../fonts/IRANYekanRegular.ttf');
+}
+
+* {
+	font-family: 'IranYekan' !important;
+}
+
+select {
+	font-size: 12px;
+}
+
+#header,
+input[type='submit'].default {
+	background-color: #1d3457 !important;
+}
+
+input[type='submit'] {
+	/* background-color: #6486b4 !important; */
+	font-size: 11px !important;
+}
+
+.breadcrumbs {
+	background-color: #40627e !important;
+}
+
+/*
+fieldset.module > h2 {
+	background-color: #40627e !important;
+}
+*/
+
+#nav-sidebar > div.module > table > caption {
+	background-color: #40627e;
+}
+
+#changelist-filter > h2 {
+	background-color: #40627e;
+}
+
+#nav-sidebar .current-model {
+	background-color: #dbdada;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+#changelist {
+	min-height: 1500px;
+}

@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% load store_app_tags %}
+
+{% load l10n %}
+{% load humanize %}
+
+
+{% block title %}
+{{ soldier.name }}
+{% endblock title %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <section>
+      <div class="p-4 row bg-light">
+        <div class="mt-4 header">
+
+          <h4 class="mb-4 text-right">
+            گزارش سرباز:
+            {{ soldier }}
+            {% if soldier.image %}
+            <img src="{{ soldier.image.url }}"
+              height="100" width="100" alt="">
+            {% else %}
+            <img
+              src="{% static 'img/avatar-anonymous-300x300.png' %}"
+              height="100" width="100" alt="">
+            {% endif %}
+
+          </h4>
+
+          <p>
+            صدور گزارش توسط: Human Rescource Management System
+          </p>
+          <p>
+            کاربر درخواست کننده:
+            {{ request.user }} -
+            {{ request.user.last_ip }}
+          </p>
+        </div>
+        <div class="ml-2 mr-auto logo">
+          <p class="ml-2 mr-auto text-right">
+            تاریخ و زمان صدور:
+            {% now "SHORT_DATETIME_FORMAT" as now_ %}
+            {{ now_|convert_str_date }}
+          </p>
+          <div class="ml-5 text-left">
+            <img
+              src="{% static 'img/logo-100.png' %}"
+              alt="">
+
+            <div class="mt-5">
+              دسترسی محرمانه
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <hr>
+
+      <table
+        class="table text-right table-bordered">
+        <tr>
+          <td>
+            کد ملی: {{ soldier.national_code }}
+          </td>
+          <td>
+            نام: {{ soldier.first_name }}
+          </td>
+          <td>
+            نشان: {{ soldier.last_name }}
+          </td>
+          <td>
+            نام پدر: {{ soldier.father_name }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            مقطع تحصیلات:
+            {{ soldier.get_academic_level_display }}
+          </td>
+          <td>
+            رشته تحصیلی:
+            {{ soldier.get_academic_field_display|value_or_null }}
+          </td>
+          <td>
+            شهر محل زندگی:
+            {{ soldier.city|value_or_null }}
+          </td>
+          <td>
+            آدرس دقیق:
+            {{ soldier.street|value_or_null }} -
+            {{ precision_address|value_or_null }}
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            شماره تلفن همراه:
+            {{ soldier.phone_number|value_or_null }}
+          </td>
+          <td>
+            شماره تلفن منزل:
+            {{ soldier.home_phone_number|value_or_null }}
+          </td>
+          <td>
+            شماره تلفن همراه پدر:
+            {{ soldier.father_phone_number|value_or_null }}
+          </td>
+          <td>
+            شماره تلفن همراه مادر:
+            {{ soldier.mother_phone_number|value_or_null }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            تاریخ اعزام:
+            {{ soldier.dispatch_date|to_jalali:'%y/%m/%d' }}
+          </td>
+          <td>
+            شماره مرحله:
+            {{ soldier.station|value_or_null }}
+          </td>
+          <td>
+            درجه:
+            {{ soldier.chevron|value_or_null }}
+          </td>
+          <td>
+            تخصص و رسته:
+            {{ soldier.skill|value_or_null }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            واحد مشغول به کار:
+            {{ soldier.location|value_or_null }}
+          </td>
+          <td>
+            وضعیت جسمانی:
+            {{ soldier.get_bulk_state_display|value_or_null }}
+          </td>
+          <td>
+            وضعیت عقلانی و روانی:
+            {{ soldier.get_psyche_state_display|value_or_null }}
+          </td>
+          <td>
+            متاهل:
+            {{ soldier.is_married|value_or_null }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            تعداد عائله:
+            {{ soldier.child_count|value_or_null }}
+          </td>
+          <td colspan="4">
+            توضیحات تکمیلی:
+            {{ soldier.description|value_or_null }}
+          </td>
+        </tr>
+      </table>
+
+      <hr />
+
+      <h5 style="float: right;">
+        اطلاعات تکمیلی:
+      </h5>
+
+      <table
+        class="table text-right table-bordered">
+        <tr>
+          <td colspan="5">
+            <ul
+              class="list-group-flush list-group-horizontal-sm">
+              عنوان دوره های طی شده:
+              {% for cor in soldier.learned_courses.all %}
+              <li class="list-group-item">
+                {{ cor.title }}
+              </li>
+              {% empty %}
+              <li class="list-group-item">
+                -------
+              </li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td colspan="5">
+            <ul
+              class="list-group-flush list-group-horizontal-sm">
+              عنوان کارت های صادره:
+              {% for card in soldier.cards.all %}
+              <li class="list-group-item">
+                {{ card.card.title }}
+              </li>
+              {% empty %}
+              <li class="list-group-item">
+                -------
+              </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            تعداد دفعات حمل اشیا غیرمجاز:
+            {{ soldier.mobile_portages.count }}
+            <br>
+            مجموع اضافه خدمت به دلیل حمل اشیا
+            غیرمجاز:
+            {{ total_surpluses_bc_phone }}
+          </td>
+          <td>
+            تعداد دفعات بازداشتی ها:
+            {{ soldier.imprisonments.count }}
+          </td>
+          <td>
+            مجموع اضافه خدمت:
+            {{ total_surpluses }}
+          </td>
+          <td>
+            تعداد مرخصی ها انتساب داده شده:
+            {{ soldier.recesses.count }} مرتبه
+            <br>
+            و
+            مجموعا به مدت {{ total_recesses }} روز
+          </td>
+          <td>
+            تعداد مرخصی های رفته:
+            {{ soldier.gone_recesses.count }}
+            مرتبه
+            <br>
+            و
+            مجموعا به مدت
+            {{ total_gone_recesses }} روز
+          </td>
+          <td>
+            تعداد مرخصی های باقی مانده:
+            {{ left_recesses }}
+          </td>
+          <td>
+            مجموع کسورات خدمتی:
+            {{ total_diminutions }}
+          </td>
+          <td>
+            تعداد دفعات فرار:
+            {{ soldier.volatiles.count }}
+          </td>
+          <td>
+            تعداد دفعات نهست:
+            {{ total_absences }}
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+</main>
+
+{% endblock content %}

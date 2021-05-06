@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% load guard_app_tags %}
+
+{% block title %}
+لوحه نگهبانی تاریخ:
+{{ guardtablet.apply_date|to_jalali:'%y/%m/%d' }}
+{% endblock title %}
+
+{% block content %}
+<style>
+  @media print {}
+
+</style>
+<div class="container-fluid">
+  <div class="tablet-header text-center py-3">
+    <img src="{% static 'img/logo-100.png' %}"
+      alt="">
+    <h4 class="mb-4">
+      {{ guardtablet.garrison.name }}
+    </h4>
+    <h6 class="mb-4">
+      {{ guardtablet.title }}
+    </h6>
+    <h6 class="text-right mr-3 ml-3">
+      لوحه نگهبانی
+      {{ guardtablet.apply_date|date:'l'  }}
+      مورخه:
+      {{ guardtablet.apply_date|to_jalali:'%Y/%m/%d'  }}
+    </h6>
+    <div class="d-flex">
+      <p class="mx-3 mt-2">
+        کاربر درخواست کننده:
+        {{ request.user }} -
+        {{ request.user.last_ip }}
+      </p>
+    </div>
+    <hr />
+  </div>
+
+  <div class="container py-3">
+    <div class="row my-3 text-right">
+      <p>پرسنل کادر</p>
+      <table
+        class="table table-bordered table-sm">
+        <thead class="thead-inverse">
+          <tr>
+            <th class="text-center">ردیف</th>
+            <th class="text-center">درجه</th>
+            <th class="text-center">نام و نشان
+            </th>
+            <th class="text-center">نوع اسلحه -
+              تیر</th>
+            <th class="text-center">محل پست</th>
+            <th class="text-center">ساعت پست</th>
+            <th class="text-center">توضیحات</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for person in guardtablet.personals_on_guard.all %}
+          <tr style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+            <td scope="row" class="text-center"
+              style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ forloop.counter }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ person.personal.personal.chevron }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ person.personal.personal.get_full_name }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ person.position.weapon }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ person.position.location }} -
+              {{ person.position.title }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ person.shift_start }}
+
+              الی
+
+              {{ person.shift_end }}
+              {% if person.shift_ends_next_day %}
+              روز بعد
+              {% endif %}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in person.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ person.position.description }}
+              <br>
+              {{ person.personal.description }}
+              <br>
+              {{ person.description }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <div class="row my-3 text-right">
+      <p>پرسنل وظیفه</p>
+      <table
+        class="table table-bordered table-sm">
+        <thead class="thead-inverse">
+          <tr>
+            <th class="text-center">ردیف</th>
+            <th class="text-center">درجه</th>
+            <th class="text-center">نام و نشان
+            </th>
+            <th class="text-center">نوع اسلحه -
+              تیر</th>
+            <th class="text-center">محل پست</th>
+            <th class="text-center">ساعت پست</th>
+            <th class="text-center">توضیحات</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for soldier in guardtablet.soldiers_on_guard.all %}
+          <tr style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+            <td scope="row" class="text-center"
+              style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ forloop.counter }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ soldier.soldier.soldier.chevron }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ soldier.soldier.soldier.get_ful_name }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ soldier.position.weapon }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ soldier.position.location }}
+              - {{ soldier.position.title }}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ soldier.shift_start }}
+
+              الی
+
+              {{ soldier.shift_end }}
+              {% if soldier.shift_ends_next_day %}
+              روز بعد
+              {% endif %}
+            </td>
+            <td class="text-center" style="
+            {% if 'تیر' in soldier.position.weapon %}
+              background-color: #ccc !important;
+            {% endif %}
+              ">
+              {{ soldier.position.description }}
+              <br>
+              {{ soldier.description }}
+              <br>
+              {{ soldier.soldier.description }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="row my-4">
+      <h6 class="mr-auto text-left ml-5">دسترسی:
+        خیلی
+        محرمانه
+      </h6>
+    </div>
+    <div class="row my-4 px-3 text-right">
+      <p>
+        {{ guardtablet.description }}
+      </p>
+      <p style="font-size: 14px;">
+        تذکر: افسرنگهبان یا معاون افسرنگهبان در
+        طول مدت ۲۴ ساعت نگهبانی طوری تنظیم نمایند
+        حتما یک نفر از آنان بیرون از اتاق
+        افسرنگهبان جهت نظارت و کنترل حضور داشته
+        باشد.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
