@@ -1,6 +1,6 @@
 # human-resource-management-system
 
-this is a highly customized django project with the following functionalities availabl:
+this is a highly customized django project with the following functionalities available:
 
 - This project is one of the most complete examples of Django translation projects available
   Because it has some hacks to translate `permissions‍‍` visible on the `django-admin` page. (This was a big deal, because you will not find a similar example out there!)
